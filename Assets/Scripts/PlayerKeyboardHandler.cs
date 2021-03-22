@@ -23,7 +23,8 @@ public class PlayerKeyboardHandler : MonoBehaviour
         // var a = Input.GetKey(KeyCode.A) ? 1 : 0;
         // var d = Input.GetKey(KeyCode.D) ? -1 : 0;
         // var movementVector = new Vector2(-(a + d), w + s);
-
+        
+        // В Rigidbody2D выберите Body Type Kinematic, чтобы не действовала гравитация и другие силы.
         if (movementVector.magnitude > Mathf.Epsilon)
         {
             rigidBodyComponent.velocity = movementVector * acceleration;
@@ -35,7 +36,6 @@ public class PlayerKeyboardHandler : MonoBehaviour
         // Другой вариант, без Rigidbody2D.
         // Указываются абсолютные координаты, а не смещение.
         // Перемещение происходит мгновенно, в отличие от скорости.
-        // В Rigidbody2D выберите Body Type Kinematic, чтобы не действовала гравитация.
         // transform.position = new Vector3(...)
     }
 }
