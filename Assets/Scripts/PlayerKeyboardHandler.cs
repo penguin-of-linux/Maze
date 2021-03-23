@@ -25,7 +25,7 @@ public class PlayerKeyboardHandler : MonoBehaviour
         //var movementVector = new Vector2(h, v);
         
         // В Rigidbody2D можно выбрать Body Type Kinematic, чтобы не действовала гравитация и другие силы.
-        // В этом случае не будут автоматически происходить collision и их придется обрабатывать вручную, как и перемещение (см. последний комментарий)
+        // В этом случае не будут автоматически происходить collision и их придется обрабатывать вручную
         
         rigidBodyComponent.velocity = movementVector * acceleration;
         if (movementVector.magnitude > Mathf.Epsilon)
