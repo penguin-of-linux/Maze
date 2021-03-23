@@ -1,14 +1,15 @@
-﻿using System;
+﻿using UnityEditor;
 using UnityEngine;
 
 public class PlayerKeyboardHandler : MonoBehaviour
 {
-    private float acceleration = 3;
+    private float acceleration = 30;
     private Rigidbody2D rigidBodyComponent;
 
     private void Start()
     {
         rigidBodyComponent = GetComponent<Rigidbody2D>();
+        exit = GameObject.Find("Exit");
     }
 
     private void Update()
@@ -39,4 +40,15 @@ public class PlayerKeyboardHandler : MonoBehaviour
         // Перемещение происходит мгновенно, в отличие от скорости.
         // transform.position = new Vector3(...)
     }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject == exit)
+        {
+            Debug.Log("Freedom!... Oh no!");
+            transform.position = new Vector3(-17.5f, 12.5f, transform.position.z);
+        }
+    }
+
+    private GameObject exit;
 }
