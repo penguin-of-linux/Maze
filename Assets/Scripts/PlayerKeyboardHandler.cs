@@ -13,22 +13,23 @@ public class PlayerKeyboardHandler : MonoBehaviour
 
     private void Update()
     {
-        var v = Input.GetAxis("Vertical"); // Возвращают от -1 до 1
-        var h = Input.GetAxis("Horizontal");
-        var movementVector = new Vector2(h, v);
+        var w = Input.GetKey(KeyCode.W) ? 1 : 0;
+        var s = Input.GetKey(KeyCode.S) ? -1 : 0;
+        var a = Input.GetKey(KeyCode.A) ? 1 : 0;
+        var d = Input.GetKey(KeyCode.D) ? -1 : 0;
+        var movementVector = new Vector2(-(a + d), w + s);
 
-        // Другой вариант. Но тогда нет промежуточных поворотов и не работает джойстик.
-        // var w = Input.GetKey(KeyCode.W) ? 1 : 0;
-        // var s = Input.GetKey(KeyCode.S) ? -1 : 0;
-        // var a = Input.GetKey(KeyCode.A) ? 1 : 0;
-        // var d = Input.GetKey(KeyCode.D) ? -1 : 0;
-        // var movementVector = new Vector2(-(a + d), w + s);
+        // Другой вариант. Тогда будут промежуточные повороты и будет работать джойстик.
+        //var v = (int)Input.GetAxis("Vertical"); // Возвращают от -1 до 1
+        //var h = (int)Input.GetAxis("Horizontal");
+        //var movementVector = new Vector2(h, v);
         
-        // В Rigidbody2D выберите Body Type Kinematic, чтобы не действовала гравитация и другие силы.
+        // В Rigidbody2D можно выбрать Body Type Kinematic, чтобы не действовала гравитация и другие силы.
+        // В этом случае не будут автоматически происходить collision и их придется обрабатывать вручную, как и перемещение (см. последний комментарий)
+        
+        rigidBodyComponent.velocity = movementVector * acceleration;
         if (movementVector.magnitude > Mathf.Epsilon)
         {
-            rigidBodyComponent.velocity = movementVector * acceleration;
-            
             var angle = new Vector3(0 ,0, movementVector.GetAngle());
             transform.rotation = Quaternion.Euler(angle);
         }
